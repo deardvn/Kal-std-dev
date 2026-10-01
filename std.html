@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kalkulator Standar Deviasi & Relatif</title>
+
+  <!-- ================= OPEN GRAPH ================= -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://deardvn.github.io/Kal-std-dev/STD.html">
+  <meta property="og:title" content="Kalkulator Standar Deviasi & Relatif">
+  <meta property="og:description" content="Hitung SD dan RSD sampel analisis Zona Nilai Tanah (ZNT) secara instan.">
+  <meta property="og:image" content="https://deardvn.github.io/Kal-std-dev/og-image.png">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      line-height: 1.6;
+      background-color: #f8f9fa;
+      color: #333;
+    }
+    h2 {
+      text-align: center;
+      color: #007BFF;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+    .inputs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+    input {
+      flex: 1 1 100px;
+      min-width: 80px;
+      padding: 10px;
+      font-size: 16px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      margin: 20px auto 10px;
+      padding: 12px 24px;
+      font-size: 16px;
+      display: block;
+      cursor: pointer;
+      border: none;
+      border-radius: 6px;
+      background-color: #007BFF;
+      color: white;
+      font-weight: bold;
+      transition: background-color 0.2s;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    #hasil {
+      margin-top: 20px;
+      font-weight: bold;
+      font-size: 18px;
+      padding: 12px;
+      border-radius: 8px;
+      text-align: center;
+      word-wrap: break-word;
+    }
+    .hijau {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    .merah {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+
+    .footer {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .insta-card {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.2rem;
+      border-radius: 20px;
+      background: #e9ecef;
+      color: #333;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      transition: 0.2s;
+    }
+    .insta-card:hover {
+      background: #007BFF;
+      color: #fff;
+    }
+    .insta-icon {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+    }
+
+    @media (max-width: 480px) {
+      input {
+        flex: 1 1 100%;
+      }
+      button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Kalkulator Standar Deviasi & Relatif</h2>
+    <p style="text-align: center;">Masukkan 3–5 titik sampel:</p>
+
+    <div class="inputs">
+      <input type="number" id="s1" placeholder="Sampel 1">
+      <input type="number" id="s2" placeholder="Sampel 2">
+      <input type="number" id="s3" placeholder="Sampel 3">
+      <input type="number" id="s4" placeholder="Sampel 4 (opsional)">
+      <input type="number" id="s5" placeholder="Sampel 5 (opsional)">
+    </div>
+
+    <button onclick="hitung()">Hitung</button>
+    <div id="hasil"></div>
+
+    <div class="footer">
+      <a href="https://instagram.com/dheadeviana_" target="_blank" class="insta-card">
+        <svg class="insta-icon" viewBox="0 0 24 24">
+          <rect x="2" y="2" width="20" height="20" rx="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="17.5" cy="6.5" r="1"/>
+        </svg>
+        <span>@dheadeviana_</span>
+      </a>
+
+      <a href="https://instagram.com/hasanasdllh" target="_blank" class="insta-card">
+        <svg class="insta-icon" viewBox="0 0 24 24">
+          <rect x="2" y="2" width="20" height="20" rx="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="17.5" cy="6.5" r="1"/>
+        </svg>
+        <span>@hasanasdllh</span>
+      </a>
+    </div>
+  </div>
+
+  <script>
+    function hitung() {
+      let values = [];
+      for (let i = 1; i <= 5; i++) {
+        let v = document.getElementById("s" + i).value;
+        if (v !== "") values.push(parseFloat(v));
+      }
+
+      if (values.length < 3) {
+        alert("Minimal 3 sampel harus diisi!");
+        return;
+      }
+
+      let mean = values.reduce((a, b) => a + b, 0) / values.length;
+      let variance = values.reduce((sum, val) => sum + Math.pow(val - mean, 2), 0) / (values.length - 1);
+      let sd = Math.sqrt(variance);
+      let rsd = (sd / mean) * 100;
+
+      let hasilDiv = document.getElementById("hasil");
+      hasilDiv.innerHTML = `SD = ${sd.toFixed(4)} <br> RSD = ${rsd.toFixed(2)}%`;
+
+      if (rsd <= 25) {
+        hasilDiv.className = "hijau";
+      } else {
+        hasilDiv.className = "merah";
+      }
+    }
+  </script>
+</body>
+</html>
