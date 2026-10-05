@@ -1,395 +1,404 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kalkulator Standar Deviasi Properti</title>
+  
+  <!-- Open Graph / Meta Social -->
+  <meta property="og:title" content="Kalkulator Standar Deviasi Properti">
+  <meta property="og:description" content="Alat bantu hitung nilai rata-rata, standar deviasi, dan Koefisien Variasi (KV) untuk analisis data sampel properti.">
+  <meta property="og:image" content="og-image.png">
+  <meta property="og:type" content="website">
 
-<title>Kalkulator Standar Deviasi Relatif | PT Jade Karya Trinusa</title>
+  <!-- Favicon / Icon -->
+  <link rel="icon" type="image/png" href="icon.png">
+  
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-<meta name="description" content="Kalkulator Standar Deviasi Relatif (RSD) Zona Nilai Tanah Jatim II skala 1:10.000 PT Jade Karya Trinusa.">
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --bg-slate: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --border-color: #e2e8f0;
+      --success-bg: #dcfce7;
+      --success-text: #166534;
+      --danger-bg: #fee2e2;
+      --danger-text: #991b1b;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --radius: 12px;
+    }
 
-<!-- ================= OPEN GRAPH (WA / FB / LINKEDIN) ================= -->
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://deardvn.github.io/Kal-std-dev/">
-<meta property="og:title" content="Kalkulator Standar Deviasi Relatif | ZNT Jatim II">
-<meta property="og:description" content="Tools analisis Standar Deviasi Relatif (RSD) PT Jade Karya Trinusa.">
-<meta property="og:image" content="https://deardvn.github.io/Kal-std-dev/og-image.png">
+    /* Dark Theme Variables */
+    body.dark-mode {
+      --bg-slate: #0f172a;
+      --card-bg: #1e293b;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #334155;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4);
+    }
 
-<style>
-/* ================= NEUMORPH VARIABLES ================= */
-:root{
-  --bg:#e0e5ec;
-  --card-bg:#e0e5ec;
-  --text:#333;
-  --text-sub:#666;
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+    }
 
-  --accent:#4c6ef5;
-  --accent-hover:#364fc7;
+    body {
+      background-color: var(--bg-slate);
+      color: var(--text-main);
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
 
-  --soft-shadow:
-    8px 8px 16px #b8bcc2,
-   -8px -8px 16px #ffffff;
+    .container {
+      width: 100%;
+      max-width: 600px;
+      background: var(--card-bg);
+      padding: 28px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border-color);
+      position: relative;
+    }
 
-  --inset-shadow:
-    inset 6px 6px 12px #b8bcc2,
-    inset -6px -6px 12px #ffffff;
+    .header-actions {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+    }
 
-  --success-bg:#d3f9d8;
-  --success-text:#2b8a3e;
+    .theme-toggle {
+      background: none;
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
 
-  --danger-bg:#ffe3e3;
-  --danger-text:#c92a2a;
-}
+    .theme-toggle:hover {
+      background-color: var(--bg-slate);
+    }
 
-/* ================= DARK MODE ================= */
-body.dark{
-  --bg:#1e1e1e;
-  --card-bg:#1e1e1e;
-  --text:#e5e5e5;
-  --text-sub:#aaa;
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      padding-right: 80px;
+    }
 
-  --accent:#74c0fc;
-  --accent-hover:#4dabf7;
+    .project-info {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      line-height: 1.4;
+    }
 
-  --soft-shadow:
-    8px 8px 16px #141414,
-   -8px -8px 16px #2a2a2a;
+    .input-section {
+      margin-bottom: 24px;
+    }
 
-  --inset-shadow:
-    inset 6px 6px 12px #141414,
-    inset -6px -6px 12px #2a2a2a;
+    .sample-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
 
-  --success-bg:#2b8a3e;
-  --success-text:#d3f9d8;
+    .sample-controls label {
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
 
-  --danger-bg:#5c2122;
-  --danger-text:#ffc9c9;
-}
+    .select-dropdown {
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      background-color: var(--card-bg);
+      color: var(--text-main);
+      font-weight: 600;
+      cursor: pointer;
+    }
 
-/* ================= BASE ================= */
-*{box-sizing:border-box}
+    .input-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
 
-body{
-  margin:0;
-  font-family:Segoe UI,Tahoma,sans-serif;
-  background:var(--bg);
-  color:var(--text);
-}
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
 
-/* ================= CONTAINER ================= */
-.container{
-  max-width:850px;
-  margin:2rem auto;
-  padding:2rem;
-  border-radius:28px;
-  background:var(--card-bg);
-  box-shadow:var(--soft-shadow);
-}
+    .input-group label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
 
-/* ================= TOPBAR ================= */
-.topbar{
-  display:flex;
-  justify-content:flex-end;
-}
+    .input-field {
+      padding: 10px 14px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      background: var(--card-bg);
+      color: var(--text-main);
+      font-size: 1rem;
+      outline: none;
+    }
 
-.topbar button{
-  width:42px;
-  height:42px;
-  border:none;
-  border-radius:50%;
-  background:var(--card-bg);
-  box-shadow:var(--soft-shadow);
-  cursor:pointer;
-}
+    .input-field:focus {
+      border-color: var(--primary);
+    }
 
-.topbar button:hover{box-shadow:var(--inset-shadow)}
+    .btn-submit {
+      width: 100%;
+      padding: 12px;
+      background-color: var(--primary);
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 16px;
+    }
 
-/* ================= HEADER PROJECT INFO ================= */
-.header-info{
-  text-align:center;
-  margin-bottom:1.5rem;
-}
+    .btn-submit:hover {
+      background-color: var(--primary-hover);
+    }
 
-.company-name{
-  font-size:0.95rem;
-  font-weight:700;
-  letter-spacing:1px;
-  color:var(--accent);
-  text-transform:uppercase;
-  margin-bottom:0.3rem;
-}
+    .results-card {
+      margin-top: 24px;
+      padding: 20px;
+      background-color: var(--bg-slate);
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      display: none;
+    }
 
-h2{
-  text-align:center;
-  margin:0.2rem 0;
-  color:var(--text);
-  font-size:1.6rem;
-}
+    .results-card.active {
+      display: block;
+    }
 
-.project-subtitle{
-  font-size:0.9rem;
-  color:var(--text-sub);
-  margin-top:0.4rem;
-  font-weight:500;
-}
+    .result-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px dashed var(--border-color);
+      font-size: 0.95rem;
+    }
 
-/* ================= INPUT GRID ================= */
-.inputs{
-  margin-top:2rem;
-  display:grid;
-  gap:1rem;
+    .result-item:last-child {
+      border-bottom: none;
+    }
 
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  align-items:stretch;
-}
+    .result-label {
+      color: var(--text-muted);
+    }
 
-/* ================= INPUT ================= */
-input{
-  height:48px;
-  border:none;
-  border-radius:14px;
-  padding:0 1rem;
-  text-align:center;
-  font-size:1rem;
-  background:var(--card-bg);
-  box-shadow:var(--inset-shadow);
-  color:var(--text);
-}
+    .result-value {
+      font-weight: 700;
+    }
 
-input:focus{outline:none}
+    .badge {
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
 
-/* ================= BUTTONS ================= */
-.button-container{
-  margin-top:2rem;
-  display:flex;
-  flex-direction:column;
-  gap:1rem;
-  align-items:center;
-}
+    .badge-success {
+      background-color: var(--success-bg);
+      color: var(--success-text);
+    }
 
-.action-button{
-  width:100%;
-  max-width:260px;
-  height:48px;
-  border:none;
-  border-radius:18px;
-  font-weight:bold;
-  background:var(--card-bg);
-  color:var(--accent);
-  box-shadow:var(--soft-shadow);
-  cursor:pointer;
-}
+    .badge-danger {
+      background-color: var(--danger-bg);
+      color: var(--danger-text);
+    }
 
-.action-button:hover{box-shadow:var(--inset-shadow)}
+    footer {
+      margin-top: 24px;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+    }
 
-/* ================= RESULT ================= */
-#hasil{
-  margin-top:2.5rem;
-  display:flex;
-  flex-direction:column;
-  gap:1rem;
-}
+    footer a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
 
-.result-line{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:1rem;
-  border-radius:18px;
-  background:var(--card-bg);
-  box-shadow:var(--soft-shadow);
-}
-
-.result-line strong{
-  white-space:nowrap;
-  font-variant-numeric:tabular-nums;
-}
-
-.status-ok{
-  background:var(--success-bg);
-  color:var(--success-text);
-}
-
-.status-bad{
-  background:var(--danger-bg);
-  color:var(--danger-text);
-}
-
-/* ================= INSTAGRAM NEUMORPH ================= */
-.footer{
-  margin-top:3rem;
-  display:flex;
-  justify-content:center;
-  gap:1rem;
-  flex-wrap:wrap;
-}
-
-.insta-card{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:.6rem;
-  padding:1.2rem 2.5rem;
-  border-radius:22px;
-  background:var(--card-bg);
-  color:var(--text);
-  text-decoration:none;
-  font-weight:600;
-  box-shadow:var(--soft-shadow);
-  transition:.25s ease;
-}
-
-.insta-card:hover{
-  box-shadow:var(--inset-shadow);
-  transform:translateY(2px);
-  color:var(--accent);
-}
-
-.insta-icon{
-  width:28px;
-  height:28px;
-  stroke:currentColor;
-  fill:none;
-  stroke-width:2;
-}
-</style>
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
-
 <body>
 
-<div class="container">
-
-  <div class="topbar">
-    <button onclick="toggleTheme()">🌙</button>
-  </div>
-
-  <div class="header-info">
-    <div class="company-name">PT Jade Karya Trinusa</div>
-    <h2>Kalkulator Standar Deviasi Relatif</h2>
-    <div class="project-subtitle">Proyek: Zona Nilai Tanah Jatim II skala 1:10.000</div>
-  </div>
-
-  <div class="inputs" id="inputs"></div>
-
-  <div class="button-container">
-    <button class="action-button" onclick="tambahSampel()">+ Tambah Sampel</button>
-    <button class="action-button" onclick="hitung()">Hitung</button>
-  </div>
-
-  <div id="hasil"></div>
-
- <div class="footer">
-
-  <a href="https://instagram.com/dheadeviana_" target="_blank" class="insta-card">
-    <span>@dheadeviana_</span>
-    <svg class="insta-icon" viewBox="0 0 24 24">
-      <rect x="2" y="2" width="20" height="20" rx="5"/>
-      <circle cx="12" cy="12" r="4"/>
-      <circle cx="17.5" cy="6.5" r="1"/>
-    </svg>
-  </a>
-
-  <a href="https://instagram.com/hasanasdllh" target="_blank" class="insta-card">
-    <span>@hasanasdllh</span>
-    <svg class="insta-icon" viewBox="0 0 24 24">
-      <rect x="2" y="2" width="20" height="20" rx="5"/>
-      <circle cx="12" cy="12" r="4"/>
-      <circle cx="17.5" cy="6.5" r="1"/>
-    </svg>
-  </a>
-
-</div>
-
-<script>
-let maxSampel = 15;
-let jumlahSampel = 3;
-let valuesCache = [];
-
-/* FORMAT */
-function formatRupiah(el){
-  let v = el.value.replace(/\D/g,'');
-  el.value = v ? new Intl.NumberFormat('id-ID').format(v) : '';
-}
-
-/* RENDER INPUT */
-function renderInputs(){
-  const c = document.getElementById("inputs");
-  c.innerHTML = "";
-
-  for(let i=0;i<jumlahSampel;i++){
-    const input = document.createElement("input");
-    input.type = "text";
-    input.placeholder = "Sampel " + (i+1);
-    input.value = valuesCache[i] || "";
-
-    input.oninput = () => {
-      formatRupiah(input);
-      valuesCache[i] = input.value;
-    };
-
-    c.appendChild(input);
-  }
-}
-
-/* TAMBAH SAMPEL */
-function tambahSampel(){
-  if(jumlahSampel >= maxSampel){
-    alert("Maksimal 15 sampel");
-    return;
-  }
-  jumlahSampel++;
-  renderInputs();
-}
-
-/* HITUNG */
-function hitung(){
-  const values = valuesCache
-    .filter(v => v)
-    .map(v => parseFloat(v.replace(/\./g,'')));
-
-  const hasil = document.getElementById("hasil");
-  hasil.innerHTML = "";
-
-  if(values.length < 3){
-    hasil.innerHTML = `
-      <div class="result-line status-bad">
-        <span>Error</span>
-        <strong>Minimal 3 sampel!</strong>
-      </div>`;
-    return;
-  }
-
-  const mean = values.reduce((a,b)=>a+b,0)/values.length;
-  const variance = values.reduce((s,v)=>s+Math.pow(v-mean,2),0)/(values.length-1);
-  const sd = Math.sqrt(variance);
-  const rsd = mean!==0 ? (sd/mean)*100 : 0;
-
-  const status = rsd<=25 ? "status-ok":"status-bad";
-  const text = rsd<=25 ? "Mantab":"Ditolak";
-
-  hasil.innerHTML = `
-    <div class="result-line">
-      <span>Rata-rata (Mean)</span>
-      <strong>${mean.toLocaleString('id-ID')}</strong>
+  <div class="container">
+    <div class="header-actions">
+      <button class="theme-toggle" id="themeToggleBtn" onclick="toggleTheme()">
+        <i class="fa-solid fa-moon"></i> Dark
+      </button>
     </div>
-    <div class="result-line">
-      <span>Standar Deviasi (SD)</span>
-      <strong>${sd.toLocaleString('id-ID')}</strong>
+
+    <h2>Kalkulator Standar Deviasi</h2>
+    <div class="project-info">
+      <strong>PT Jade Karya Trinusa</strong>
     </div>
-    <div class="result-line ${status}">
-      <span>Relatif Standar Deviasi (RSD)</span>
-      <strong>${rsd.toFixed(2)}% (${text})</strong>
-    </div>`;
-}
 
-/* DARK MODE */
-function toggleTheme(){
-  document.body.classList.toggle("dark");
-}
+    <div class="input-section">
+      <div class="sample-controls">
+        <label for="sampleCount">Jumlah Sampel:</label>
+        <select id="sampleCount" class="select-dropdown" onchange="renderInputs()">
+          <option value="3">3 Sampel</option>
+          <option value="4">4 Sampel</option>
+          <option value="5" selected>5 Sampel</option>
+        </select>
+      </div>
 
-/* INIT */
-renderInputs();
-</script>
+      <div class="input-grid" id="inputGrid">
+        <!-- Input fields rendered dynamically -->
+      </div>
 
+      <button class="btn-submit" onclick="calculateSD()">Hitung Hasil</button>
+    </div>
+
+    <div class="results-card" id="resultsCard">
+      <div class="result-item">
+        <span class="result-label">Rata-rata (Mean):</span>
+        <span class="result-value" id="resMean">0</span>
+      </div>
+      <div class="result-item">
+        <span class="result-label">Standar Deviasi (S):</span>
+        <span class="result-value" id="resSD">0</span>
+      </div>
+      <div class="result-item">
+        <span class="result-label">Koefisien Variasi (KV):</span>
+        <span class="result-value" id="resKV">0%</span>
+      </div>
+      <div class="result-item" style="margin-top: 8px; align-items: center;">
+        <span class="result-label">Status Presisi:</span>
+        <span id="resStatus" class="badge badge-success">Sesuai</span>
+      </div>
+    </div>
+
+    <footer>
+      <span>&copy; PT Jade Karya Trinusa</span>
+      <span>•</span>
+      <a href="https://instagram.com/dheadeviana_" target="_blank"><i class="fa-brands fa-instagram"></i> @dheadeviana_</a>
+    </footer>
+  </div>
+
+  <script>
+    // RENDER INPUT FIELDS
+    function renderInputs() {
+      const count = parseInt(document.getElementById('sampleCount').value);
+      const grid = document.getElementById('inputGrid');
+      grid.innerHTML = '';
+
+      for (let i = 1; i <= count; i++) {
+        const div = document.createElement('div');
+        div.className = 'input-group';
+        div.innerHTML = `
+          <label for="sample${i}">Nilai Sampel ${i}:</label>
+          <input type="number" id="sample${i}" class="input-field" placeholder="Masukkan angka..." step="any">
+        `;
+        grid.appendChild(div);
+      }
+    }
+
+    // CALCULATE MEAN, SD, KV
+    function calculateSD() {
+      const count = parseInt(document.getElementById('sampleCount').value);
+      let values = [];
+
+      for (let i = 1; i <= count; i++) {
+        const val = parseFloat(document.getElementById(`sample${i}`).value);
+        if (!isNaN(val)) {
+          values.push(val);
+        }
+      }
+
+      if (values.length < 2) {
+        alert('Harap isi minimal 2 data sampel yang valid!');
+        return;
+      }
+
+      // Mean
+      const sum = values.reduce((a, b) => a + b, 0);
+      const mean = sum / values.length;
+
+      // Standard Deviation (Sample)
+      const variance = values.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / (values.length - 1);
+      const sd = Math.sqrt(variance);
+
+      // Coefficient of Variation (%)
+      const kv = mean !== 0 ? (sd / mean) * 100 : 0;
+
+      // Display Results
+      document.getElementById('resMean').innerText = mean.toLocaleString('id-ID', { maximumFractionDigits: 2 });
+      document.getElementById('resSD').innerText = sd.toLocaleString('id-ID', { maximumFractionDigits: 2 });
+      document.getElementById('resKV').innerText = kv.toFixed(2) + '%';
+
+      const statusBadge = document.getElementById('resStatus');
+      if (kv <= 30) {
+        statusBadge.innerText = 'Presisi Bagus (KV ≤ 30%)';
+        statusBadge.className = 'badge badge-success';
+      } else {
+        statusBadge.innerText = 'Variasi Tinggi (KV > 30%)';
+        statusBadge.className = 'badge badge-danger';
+      }
+
+      document.getElementById('resultsCard').classList.add('active');
+    }
+
+    // THEME TOGGLE
+    function toggleTheme() {
+      const body = document.body;
+      const btn = document.getElementById('themeToggleBtn');
+      body.classList.toggle('dark-mode');
+
+      if (body.classList.contains('dark-mode')) {
+        btn.innerHTML = '<i class="fa-solid fa-sun"></i> Light';
+      } else {
+        btn.innerHTML = '<i class="fa-solid fa-moon"></i> Dark';
+      }
+    }
+
+    // INITIAL RENDER
+    renderInputs();
+  </script>
 </body>
 </html>
