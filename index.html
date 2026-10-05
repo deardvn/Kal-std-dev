@@ -49,27 +49,6 @@
   --danger-bg:#ffe3e3;
   --danger-text:#c92a2a;
 }
-      <div class="footer" style="display: flex; gap: 10px; align-items: center; justify-content: center; font-size: 0.85rem; flex-wrap: wrap;">
-  <span>&copy; PT Jade Karya Trinusa</span>
-  <span>•</span>
-  <a href="https://instagram.com/dheadeviana_" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 4px;">
-    <svg class="insta-icon" viewBox="0 0 24 24" style="width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2;">
-      <rect x="2" y="2" width="20" height="20" rx="5"/>
-      <circle cx="12" cy="12" r="4"/>
-      <circle cx="17.5" cy="6.5" r="1"/>
-    </svg>
-    @dheadeviana_
-  </a>
-  <span>•</span>
-  <a href="https://instagram.com/hasanasdllh" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 4px;">
-    <svg class="insta-icon" viewBox="0 0 24 24" style="width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2;">
-      <rect x="2" y="2" width="20" height="20" rx="5"/>
-      <circle cx="12" cy="12" r="4"/>
-      <circle cx="17.5" cy="6.5" r="1"/>
-    </svg>
-    @hasanasdllh
-  </a>
-</div>
 
 /* ================= DARK MODE ================= */
 body.dark{
@@ -146,14 +125,11 @@ h2{
   display:grid;
   gap:1rem;
   justify-content: center;
-
-  /* KUNCI PENYAMAAN UKURAN */
   grid-template-columns: repeat(auto-fit, 140px);
   align-items:stretch;
 }
 
 /* ================= INPUT & SELECT ================= */
-/* Menambahkan styling select agar sama dengan input neumorph */
 input, select{
   height:48px;
   border:none;
@@ -226,37 +202,30 @@ input:focus, select:focus{outline:none}
   color:var(--danger-text);
 }
 
-/* ================= INSTAGRAM NEUMORPH ================= */
+/* ================= FOOTER ================= */
 .footer{
   margin-top:3rem;
   display:flex;
+  gap:10px;
+  align-items:center;
   justify-content:center;
+  font-size:0.85rem;
+  flex-wrap:wrap;
+  color:var(--text);
 }
 
-.insta-card{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:.6rem;
-  padding:1.2rem 2.5rem;
-  border-radius:22px;
-  background:var(--card-bg);
-  color:var(--text);
+.footer a{
+  color:var(--accent);
   text-decoration:none;
   font-weight:600;
-  box-shadow:var(--soft-shadow);
-  transition:.25s ease;
-}
-
-.insta-card:hover{
-  box-shadow:var(--inset-shadow);
-  transform:translateY(2px);
-  color:var(--accent);
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
 }
 
 .insta-icon{
-  width:28px;
-  height:28px;
+  width:18px;
+  height:18px;
   stroke:currentColor;
   fill:none;
   stroke-width:2;
@@ -274,7 +243,7 @@ input:focus, select:focus{outline:none}
 
   <h2>CEK STANDAR DEVIASI RELATIF</h2>
 
-  <!-- TAMBAHAN: Opsi Pemilihan Skala Project -->
+  <!-- Opsi Pemilihan Skala Project -->
   <div style="text-align: center; margin-top: 1.5rem; margin-bottom: 0.5rem;">
     <label style="font-weight: 600; color: var(--accent); display: block; margin-bottom: 0.5rem;">Pilih Skala Project ZNT</label>
     <select id="skalaProject" onchange="hitung()" style="width: 100%; max-width: 260px; cursor: pointer;">
@@ -293,14 +262,26 @@ input:focus, select:focus{outline:none}
 
   <div id="hasil"></div>
 
+  <!-- FOOTER TERBARU -->
   <div class="footer">
-    <a href="https://instagram.com/hasanasdllh" target="_blank" class="insta-card">
-      <span>@hasanasdllh</span>
+    <span>&copy; PT Jade Karya Trinusa</span>
+    <span>•</span>
+    <a href="https://instagram.com/dheadeviana_" target="_blank">
       <svg class="insta-icon" viewBox="0 0 24 24">
         <rect x="2" y="2" width="20" height="20" rx="5"/>
         <circle cx="12" cy="12" r="4"/>
         <circle cx="17.5" cy="6.5" r="1"/>
       </svg>
+      @dheadeviana_
+    </a>
+    <span>•</span>
+    <a href="https://instagram.com/hasanasdllh" target="_blank">
+      <svg class="insta-icon" viewBox="0 0 24 24">
+        <rect x="2" y="2" width="20" height="20" rx="5"/>
+        <circle cx="12" cy="12" r="4"/>
+        <circle cx="17.5" cy="6.5" r="1"/>
+      </svg>
+      @hasanasdllh
     </a>
   </div>
 
@@ -317,7 +298,7 @@ function formatRupiah(el){
   el.value = v ? new Intl.NumberFormat('id-ID').format(v) : '';
 }
 
-/* RENDER INPUT (TIDAK HILANG DATA) */
+/* RENDER INPUT */
 function renderInputs(){
   const c = document.getElementById("inputs");
   c.innerHTML = "";
@@ -370,10 +351,8 @@ function hitung(){
   const sd = Math.sqrt(variance);
   const rsd = mean!==0 ? (sd/mean)*100 : 0;
 
-  // AMBIL NILAI BATAS DARI DROPDOWN SKALA ZNT
   let maxRsd = parseFloat(document.getElementById("skalaProject").value);
 
-  // BANDINGKAN DENGAN MAX RSD YANG DIPILIH
   const status = rsd<=maxRsd ? "status-ok":"status-bad";
   const text = rsd<=maxRsd ? "Mantab":"Tidak Mantab!";
 
