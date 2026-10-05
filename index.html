@@ -26,17 +26,16 @@
 <meta name="twitter:image" content="https://ekabudiku.github.io/kalkulator-std-dev/og-image.png">
 
 <style>
-/* ================= CORPORATE PROFESSIONAL THEME ================= */
+/* ================= MAROON CORPORATE THEME ================= */
 :root {
-  --primary-navy: #0f172a;
-  --secondary-blue: #1e3a8a;
-  --accent-blue: #2563eb;
-  --accent-hover: #1d4ed8;
-  --bg-slate: #f8fafc;
+  --maroon-primary: #800000;
+  --maroon-dark: #5a0000;
+  --maroon-hover: #990000;
+  --bg-light: #f5f2f2;
   --card-bg: #ffffff;
-  --border-color: #cbd5e1;
-  --text-main: #1e293b;
-  --text-muted: #64748b;
+  --border-color: #e0d8d8;
+  --text-main: #2b2b2b;
+  --text-muted: #666666;
   --success-bg: #f0fdf4;
   --success-border: #bbf7d0;
   --success-text: #166534;
@@ -46,15 +45,14 @@
 }
 
 body.dark {
-  --primary-navy: #38bdf8;
-  --secondary-blue: #60a5fa;
-  --accent-blue: #3b82f6;
-  --accent-hover: #2563eb;
-  --bg-slate: #0f172a;
-  --card-bg: #1e293b;
-  --border-color: #334155;
-  --text-main: #f8fafc;
-  --text-muted: #94a3b8;
+  --maroon-primary: #ff4d4d;
+  --maroon-dark: #cc0000;
+  --maroon-hover: #ff6666;
+  --bg-light: #181212;
+  --card-bg: #241c1c;
+  --border-color: #3d3030;
+  --text-main: #f5f2f2;
+  --text-muted: #b3a6a6;
   --success-bg: #064e3b;
   --success-border: #047857;
   --success-text: #a7f3d0;
@@ -68,8 +66,8 @@ body.dark {
 body {
   margin: 0;
   min-height: 100vh;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  background-color: var(--bg-slate);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--bg-light);
   color: var(--text-main);
   display: flex;
   align-items: center;
@@ -81,10 +79,10 @@ body {
   width: 100%;
   max-width: 800px;
   padding: 2.5rem;
-  border-radius: 12px;
+  border-radius: 16px;
   background: var(--card-bg);
   border: 1px solid var(--border-color);
-  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+  box-shadow: 0 10px 30px rgba(128, 0, 0, 0.05);
 }
 
 .topbar {
@@ -105,17 +103,35 @@ body {
 }
 
 .topbar button:hover {
-  background: var(--bg-slate);
+  background: var(--bg-light);
+}
+
+/* HEADER TITLES */
+.company-tag {
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--maroon-primary);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
 }
 
 h2 {
   text-align: center;
-  margin-top: 0;
-  color: var(--secondary-blue);
-  font-size: 1.5rem;
+  margin: 0;
+  color: var(--text-main);
+  font-size: 1.8rem;
   font-weight: 700;
-  letter-spacing: -0.025em;
-  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-top: 0.4rem;
+  margin-bottom: 1.5rem;
 }
 
 /* INPUT SECTION */
@@ -131,7 +147,7 @@ h2 {
 input, select {
   height: 44px;
   border: 1px solid var(--border-color);
-  border-radius: 6px;
+  border-radius: 8px;
   padding: 0 0.85rem;
   text-align: center;
   font-size: 0.9rem;
@@ -143,15 +159,14 @@ input, select {
 }
 
 input:focus, select:focus {
-  border-color: var(--accent-blue);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  border-color: var(--maroon-primary);
+  box-shadow: 0 0 0 3px rgba(128, 0, 0, 0.12);
 }
 
 /* BUTTONS */
 .button-container {
   margin-top: 2rem;
   display: flex;
-  flex-direction: flex-row;
   gap: 0.75rem;
   justify-content: center;
   flex-wrap: wrap;
@@ -161,17 +176,17 @@ input:focus, select:focus {
   min-width: 180px;
   height: 44px;
   border: none;
-  border-radius: 6px;
-  font-weight: 600;
+  border-radius: 8px;
+  font-weight: 700;
   font-size: 0.9rem;
-  background: var(--accent-blue);
+  background: var(--maroon-primary);
   color: #ffffff;
   cursor: pointer;
   transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
 .action-button:hover {
-  background: var(--accent-hover);
+  background: var(--maroon-hover);
 }
 
 .action-button:active {
@@ -191,8 +206,8 @@ input:focus, select:focus {
   justify-content: space-between;
   align-items: center;
   padding: 0.85rem 1.25rem;
-  border-radius: 6px;
-  background: var(--bg-slate);
+  border-radius: 8px;
+  background: var(--bg-light);
   border: 1px solid var(--border-color);
   font-size: 0.95rem;
 }
@@ -222,13 +237,13 @@ input:focus, select:focus {
   gap: 12px;
   align-items: center;
   justify-content: center;
-  font-size: 0.825rem;
+  font-size: 0.85rem;
   color: var(--text-muted);
   flex-wrap: wrap;
 }
 
 .footer a {
-  color: var(--accent-blue);
+  color: var(--maroon-primary);
   text-decoration: none;
   font-weight: 600;
   display: inline-flex;
@@ -248,7 +263,6 @@ input:focus, select:focus {
   stroke-width: 2;
 }
 </style>
-  
 </head>
 
 <body>
@@ -259,11 +273,14 @@ input:focus, select:focus {
     <button onclick="toggleTheme()">🌙</button>
   </div>
 
-  <h2>CEK STANDAR DEVIASI RELATIF</h2>
+  <!-- PERBAIKAN JUDUL SESUAI KEBUTUHAN -->
+  <div class="company-tag">PT JADE KARYA TRINUSA</div>
+  <h2>Kalkulator Standar Deviasi Relatif</h2>
+  <div class="subtitle">Proyek: Zona Nilai Tanah Jatim II skala 1:10.000</div>
 
   <!-- Opsi Pemilihan Skala Project -->
-  <div style="text-align: center; margin-top: 1.5rem; margin-bottom: 0.5rem;">
-    <label style="font-weight: 600; color: var(--accent); display: block; margin-bottom: 0.5rem;">Pilih Skala Project ZNT</label>
+  <div style="text-align: center; margin-top: 1rem; margin-bottom: 0.5rem;">
+    <label style="font-weight: 600; color: var(--maroon-primary); display: block; margin-bottom: 0.5rem; font-size: 0.9rem;">Pilih Skala Project ZNT</label>
     <select id="skalaProject" onchange="hitung()" style="width: 100%; max-width: 260px; cursor: pointer;">
       <option value="15">Skala 1:2.500 (Max 15%)</option>
       <option value="25" selected>Skala 1:10.000 (Max 25%)</option>
@@ -280,7 +297,7 @@ input:focus, select:focus {
 
   <div id="hasil"></div>
 
-  <!-- FOOTER TERBARU -->
+  <!-- FOOTER -->
   <div class="footer">
     <span>&copy; PT Jade Karya Trinusa</span>
     <span>•</span>
@@ -392,7 +409,6 @@ function hitung(){
 /* DARK MODE */
 function toggleTheme(){
   document.body.classList.toggle("dark");
-  
 }
 
 /* INIT */
