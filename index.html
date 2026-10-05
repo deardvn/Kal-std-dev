@@ -3,52 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kalkulator Standar Deviasi Properti</title>
+  <title>CEK STANDAR DEVIASI RELATIF</title>
   
-  <!-- Open Graph / Meta Social -->
-  <meta property="og:title" content="Kalkulator Standar Deviasi Properti">
-  <meta property="og:description" content="Alat bantu hitung nilai rata-rata, standar deviasi, dan Koefisien Variasi (KV) untuk analisis data sampel properti.">
-  <meta property="og:image" content="og-image.png">
-  <meta property="og:type" content="website">
-
-  <!-- Favicon / Icon -->
-  <link rel="icon" type="image/png" href="icon.png">
-  
-  <!-- Font Awesome for Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
-  <!-- Google Fonts -->
+  <!-- Google Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
     :root {
-      --primary: #2563eb;
-      --primary-hover: #1d4ed8;
-      --bg-slate: #f8fafc;
-      --card-bg: #ffffff;
-      --text-main: #0f172a;
-      --text-muted: #64748b;
-      --border-color: #e2e8f0;
-      --success-bg: #dcfce7;
-      --success-text: #166534;
-      --danger-bg: #fee2e2;
-      --danger-text: #991b1b;
-      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-      --radius: 12px;
+      --bg-color: #e6ecf5;
+      --text-blue: #4d72f8;
+      --text-dark: #334155;
+      --shadow-light: #ffffff;
+      --shadow-dark: #b8c4d8;
+      --card-bg: #e6ecf5;
     }
 
-    /* Dark Theme Variables */
     body.dark-mode {
-      --bg-slate: #0f172a;
+      --bg-color: #1e293b;
+      --text-blue: #60a5fa;
+      --text-dark: #f8fafc;
+      --shadow-light: #2b3a52;
+      --shadow-dark: #111827;
       --card-bg: #1e293b;
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-      --border-color: #334155;
-      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
-      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4);
     }
 
     * {
@@ -56,262 +35,237 @@
       margin: 0;
       padding: 0;
       font-family: 'Plus Jakarta Sans', sans-serif;
-      transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+      transition: all 0.3s ease;
     }
 
     body {
-      background-color: var(--bg-slate);
-      color: var(--text-main);
-      padding: 20px;
+      background-color: var(--bg-color);
+      color: var(--text-dark);
+      min-height: 100vh;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
+      padding: 20px;
     }
 
     .container {
       width: 100%;
-      max-width: 600px;
-      background: var(--card-bg);
-      padding: 28px;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow-md);
-      border: 1px solid var(--border-color);
+      max-width: 650px;
+      padding: 40px 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       position: relative;
     }
 
-    .header-actions {
-      position: absolute;
-      top: 24px;
-      right: 24px;
-    }
-
+    /* Toggle Dark Mode Button */
     .theme-toggle {
-      background: none;
-      border: 1px solid var(--border-color);
-      color: var(--text-main);
-      padding: 8px 12px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 14px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .theme-toggle:hover {
-      background-color: var(--bg-slate);
-    }
-
-    h2 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin-bottom: 6px;
-      padding-right: 80px;
-    }
-
-    .project-info {
-      font-size: 0.875rem;
-      color: var(--text-muted);
-      margin-bottom: 24px;
-      line-height: 1.4;
-    }
-
-    .input-section {
-      margin-bottom: 24px;
-    }
-
-    .sample-controls {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 16px;
-    }
-
-    .sample-controls label {
-      font-weight: 600;
-      font-size: 0.9rem;
-    }
-
-    .select-dropdown {
-      padding: 6px 12px;
-      border-radius: 6px;
-      border: 1px solid var(--border-color);
-      background-color: var(--card-bg);
-      color: var(--text-main);
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    .input-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .input-group {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .input-group label {
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--text-muted);
-    }
-
-    .input-field {
-      padding: 10px 14px;
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      background: var(--card-bg);
-      color: var(--text-main);
-      font-size: 1rem;
-      outline: none;
-    }
-
-    .input-field:focus {
-      border-color: var(--primary);
-    }
-
-    .btn-submit {
-      width: 100%;
-      padding: 12px;
-      background-color: var(--primary);
-      color: #ffffff;
+      position: absolute;
+      top: 0;
+      right: 10px;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: var(--bg-color);
       border: none;
-      border-radius: 8px;
-      font-size: 1rem;
-      font-weight: 600;
+      color: #f59e0b;
+      font-size: 1.2rem;
       cursor: pointer;
-      margin-top: 16px;
-    }
-
-    .btn-submit:hover {
-      background-color: var(--primary-hover);
-    }
-
-    .results-card {
-      margin-top: 24px;
-      padding: 20px;
-      background-color: var(--bg-slate);
-      border-radius: 8px;
-      border: 1px solid var(--border-color);
-      display: none;
-    }
-
-    .results-card.active {
-      display: block;
-    }
-
-    .result-item {
-      display: flex;
-      justify-content: space-between;
-      padding: 8px 0;
-      border-bottom: 1px dashed var(--border-color);
-      font-size: 0.95rem;
-    }
-
-    .result-item:last-child {
-      border-bottom: none;
-    }
-
-    .result-label {
-      color: var(--text-muted);
-    }
-
-    .result-value {
-      font-weight: 700;
-    }
-
-    .badge {
-      padding: 4px 10px;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      font-weight: 600;
-    }
-
-    .badge-success {
-      background-color: var(--success-bg);
-      color: var(--success-text);
-    }
-
-    .badge-danger {
-      background-color: var(--danger-bg);
-      color: var(--danger-text);
-    }
-
-    footer {
-      margin-top: 24px;
-      text-align: center;
-      font-size: 0.8rem;
-      color: var(--text-muted);
+      box-shadow: 6px 6px 12px var(--shadow-dark), 
+                  -6px -6px 12px var(--shadow-light);
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 12px;
     }
 
-    footer a {
-      color: var(--primary);
-      text-decoration: none;
+    .theme-toggle:active {
+      box-shadow: inset 4px 4px 8px var(--shadow-dark), 
+                  inset -4px -4px 8px var(--shadow-light);
+    }
+
+    /* Header */
+    h1 {
+      color: var(--text-blue);
+      font-size: 1.6rem;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 25px;
+      letter-spacing: 0.5px;
+    }
+
+    .label-blue {
+      color: var(--text-blue);
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    /* Neumorphic Input & Select Box */
+    .neu-box {
+      width: 100%;
+      background: var(--bg-color);
+      border: none;
+      outline: none;
+      padding: 14px 20px;
+      border-radius: 20px;
+      box-shadow: inset 5px 5px 10px var(--shadow-dark), 
+                  inset -5px -5px 10px var(--shadow-light);
+      color: var(--text-dark);
+      font-size: 0.95rem;
+      text-align: center;
       font-weight: 600;
     }
 
-    footer a:hover {
-      text-decoration: underline;
+    .scale-select-wrapper {
+      width: 100%;
+      max-width: 320px;
+      margin-bottom: 30px;
+    }
+
+    /* Grid Sampel Menyamping */
+    .samples-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+      width: 100%;
+      margin-bottom: 25px;
+    }
+
+    .sample-item {
+      flex: 1 1 150px;
+      max-width: 180px;
+    }
+
+    .sample-item input {
+      width: 100%;
+    }
+
+    /* Neumorphic Buttons */
+    .neu-btn {
+      width: 100%;
+      max-width: 260px;
+      padding: 14px;
+      border-radius: 20px;
+      border: none;
+      background: var(--bg-color);
+      color: var(--text-blue);
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      box-shadow: 6px 6px 12px var(--shadow-dark), 
+                  -6px -6px 12px var(--shadow-light);
+      margin-bottom: 15px;
+    }
+
+    .neu-btn:active {
+      box-shadow: inset 4px 4px 8px var(--shadow-dark), 
+                  inset -4px -4px 8px var(--shadow-light);
+    }
+
+    /* Card Hasil */
+    .results-card {
+      width: 100%;
+      max-width: 450px;
+      margin-top: 20px;
+      padding: 20px 25px;
+      border-radius: 20px;
+      box-shadow: inset 4px 4px 8px var(--shadow-dark), 
+                  inset -4px -4px 8px var(--shadow-light);
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .results-card.active {
+      display: flex;
+    }
+
+    .result-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .status-badge {
+      text-align: center;
+      padding: 8px 12px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      margin-top: 10px;
+    }
+
+    .status-pass {
+      background: #d1fae5;
+      color: #047857;
+    }
+
+    .status-fail {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 0.8rem;
+      color: #64748b;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    footer a {
+      color: var(--text-blue);
+      text-decoration: none;
+      font-weight: 600;
     }
   </style>
 </head>
 <body>
 
   <div class="container">
-    <div class="header-actions">
-      <button class="theme-toggle" id="themeToggleBtn" onclick="toggleTheme()">
-        <i class="fa-solid fa-moon"></i> Dark
-      </button>
+    <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()">
+      <i class="fa-solid fa-moon"></i>
+    </button>
+
+    <h1>CEK STANDAR DEVIASI RELATIF</h1>
+
+    <div class="scale-select-wrapper">
+      <div class="label-blue">Pilih Skala Project ZNT</div>
+      <select id="scaleSelect" class="neu-box">
+        <option value="25" selected>Skala 1:10.000 (Max 25%)</option>
+        <option value="20">Skala 1:2.500 (Max 20%)</option>
+        <option value="15">Skala 1:1.000 (Max 15%)</option>
+      </select>
     </div>
 
-    <h2>Kalkulator Standar Deviasi</h2>
-    <div class="project-info">
-      <strong>PT Jade Karya Trinusa</strong>
+    <div class="samples-grid" id="samplesGrid">
+      <!-- Input Sampel Otomatis -->
     </div>
 
-    <div class="input-section">
-      <div class="sample-controls">
-        <label for="sampleCount">Jumlah Sampel:</label>
-        <select id="sampleCount" class="select-dropdown" onchange="renderInputs()">
-          <option value="3">3 Sampel</option>
-          <option value="4">4 Sampel</option>
-          <option value="5" selected>5 Sampel</option>
-        </select>
-      </div>
-
-      <div class="input-grid" id="inputGrid">
-        <!-- Input fields rendered dynamically -->
-      </div>
-
-      <button class="btn-submit" onclick="calculateSD()">Hitung Hasil</button>
-    </div>
+    <button class="neu-btn" onclick="addSample()">+ Tambah Sampel</button>
+    <button class="neu-btn" onclick="calculateSD()">Hitung</button>
 
     <div class="results-card" id="resultsCard">
-      <div class="result-item">
-        <span class="result-label">Rata-rata (Mean):</span>
-        <span class="result-value" id="resMean">0</span>
+      <div class="result-row">
+        <span>Rata-rata (Mean):</span>
+        <span id="resMean">0</span>
       </div>
-      <div class="result-item">
-        <span class="result-label">Standar Deviasi (S):</span>
-        <span class="result-value" id="resSD">0</span>
+      <div class="result-row">
+        <span>Standar Deviasi (S):</span>
+        <span id="resSD">0</span>
       </div>
-      <div class="result-item">
-        <span class="result-label">Koefisien Variasi (KV):</span>
-        <span class="result-value" id="resKV">0%</span>
+      <div class="result-row">
+        <span>SDR / KV:</span>
+        <span id="resKV">0%</span>
       </div>
-      <div class="result-item" style="margin-top: 8px; align-items: center;">
-        <span class="result-label">Status Presisi:</span>
-        <span id="resStatus" class="badge badge-success">Sesuai</span>
-      </div>
+      <div id="resStatus" class="status-badge status-pass">MEMENUHI SYARAT</div>
     </div>
 
     <footer>
@@ -322,29 +276,33 @@
   </div>
 
   <script>
-    // RENDER INPUT FIELDS
-    function renderInputs() {
-      const count = parseInt(document.getElementById('sampleCount').value);
-      const grid = document.getElementById('inputGrid');
-      grid.innerHTML = '';
+    let sampleCount = 3;
 
-      for (let i = 1; i <= count; i++) {
+    function renderSamples() {
+      const grid = document.getElementById('samplesGrid');
+      grid.innerHTML = '';
+      for (let i = 1; i <= sampleCount; i++) {
         const div = document.createElement('div');
-        div.className = 'input-group';
+        div.className = 'sample-item';
         div.innerHTML = `
-          <label for="sample${i}">Nilai Sampel ${i}:</label>
-          <input type="number" id="sample${i}" class="input-field" placeholder="Masukkan angka..." step="any">
+          <input type="number" id="sample${i}" class="neu-box" placeholder="Sampel ${i}" step="any">
         `;
         grid.appendChild(div);
       }
     }
 
-    // CALCULATE MEAN, SD, KV
-    function calculateSD() {
-      const count = parseInt(document.getElementById('sampleCount').value);
-      let values = [];
+    function addSample() {
+      if (sampleCount < 10) {
+        sampleCount++;
+        renderSamples();
+      } else {
+        alert('Maksimal 10 sampel!');
+      }
+    }
 
-      for (let i = 1; i <= count; i++) {
+    function calculateSD() {
+      let values = [];
+      for (let i = 1; i <= sampleCount; i++) {
         const val = parseFloat(document.getElementById(`sample${i}`).value);
         if (!isNaN(val)) {
           values.push(val);
@@ -352,53 +310,44 @@
       }
 
       if (values.length < 2) {
-        alert('Harap isi minimal 2 data sampel yang valid!');
+        alert('Harap isi minimal 2 data sampel!');
         return;
       }
 
-      // Mean
+      const maxKvAllowed = parseFloat(document.getElementById('scaleSelect').value);
       const sum = values.reduce((a, b) => a + b, 0);
       const mean = sum / values.length;
-
-      // Standard Deviation (Sample)
       const variance = values.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / (values.length - 1);
       const sd = Math.sqrt(variance);
-
-      // Coefficient of Variation (%)
       const kv = mean !== 0 ? (sd / mean) * 100 : 0;
 
-      // Display Results
       document.getElementById('resMean').innerText = mean.toLocaleString('id-ID', { maximumFractionDigits: 2 });
       document.getElementById('resSD').innerText = sd.toLocaleString('id-ID', { maximumFractionDigits: 2 });
       document.getElementById('resKV').innerText = kv.toFixed(2) + '%';
 
       const statusBadge = document.getElementById('resStatus');
-      if (kv <= 30) {
-        statusBadge.innerText = 'Presisi Bagus (KV ≤ 30%)';
-        statusBadge.className = 'badge badge-success';
+      if (kv <= maxKvAllowed) {
+        statusBadge.innerText = `MEMENUHI SYARAT (≤ ${maxKvAllowed}%)`;
+        statusBadge.className = 'status-badge status-pass';
       } else {
-        statusBadge.innerText = 'Variasi Tinggi (KV > 30%)';
-        statusBadge.className = 'badge badge-danger';
+        statusBadge.innerText = `TIDAK MEMENUHI SYARAT (> ${maxKvAllowed}%)`;
+        statusBadge.className = 'status-badge status-fail';
       }
 
       document.getElementById('resultsCard').classList.add('active');
     }
 
-    // THEME TOGGLE
     function toggleTheme() {
-      const body = document.body;
-      const btn = document.getElementById('themeToggleBtn');
-      body.classList.toggle('dark-mode');
-
-      if (body.classList.contains('dark-mode')) {
-        btn.innerHTML = '<i class="fa-solid fa-sun"></i> Light';
+      document.body.classList.toggle('dark-mode');
+      const btn = document.getElementById('themeBtn');
+      if (document.body.classList.contains('dark-mode')) {
+        btn.innerHTML = '<i class="fa-solid fa-sun"></i>';
       } else {
-        btn.innerHTML = '<i class="fa-solid fa-moon"></i> Dark';
+        btn.innerHTML = '<i class="fa-solid fa-moon"></i>';
       }
     }
 
-    // INITIAL RENDER
-    renderInputs();
+    renderSamples();
   </script>
 </body>
 </html>
